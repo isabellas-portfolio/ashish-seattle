@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: #2A3D66;
+  --background: #F6F7FA;
+  --accent: #89B6E4;
+  --muted: #6b7280;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-handwriting {
+    font-family: var(--font-handwriting), "Dancing Script", cursive;
+  }
+
+  /* Textured cream paper for letters */
+  .letter-paper {
+    background-color: #fdf8f0;
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Compact hero for shorter viewports – fit above the fold */
+  @media (max-height: 820px) {
+    .hero-compact-card {
+      padding-top: 2rem !important;
+      padding-bottom: 2rem !important;
+    }
+    .hero-compact-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+      line-height: 1.1 !important;
+    }
+    .hero-compact-photo {
+      width: 200px !important;
+      max-width: 100%;
+    }
+    .hero-compact-gap {
+      margin-top: 1rem !important;
+    }
+  }
+
+  /* Extra compact for very short screens */
+  @media (max-height: 700px) {
+    .hero-compact-card {
+      padding-top: 1.25rem !important;
+      padding-bottom: 1.25rem !important;
+    }
+    .hero-compact-photo {
+      width: 180px !important;
+    }
+    .hero-compact-gap {
+      margin-top: 0.75rem !important;
+    }
+  }
+}
