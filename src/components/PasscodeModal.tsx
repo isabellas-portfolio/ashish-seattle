@@ -96,11 +96,11 @@ export default function PasscodeModal({
             />
             {error && (
               <p className="mt-2 text-center text-sm text-red-600">
-                Not quite—try again!
+                Not quite, try again!
               </p>
             )}
             <p className="mt-2 text-center text-xs text-coastal-navy/70">
-              Hint: it&apos;s something we both know :)
+              Hint: 🐸
             </p>
             <div className="mt-4 flex gap-2">
               <button

@@ -8,6 +8,7 @@ import Filters from "./Filters";
 import LocationFilters from "./LocationFilters";
 import CuisineFilters from "./CuisineFilters";
 import RecCard from "./RecCard";
+import BellevuePinMap from "./BellevuePinMap";
 
 export default function RecGrid() {
   const [activeCategory, setActiveCategory] = useState<
@@ -61,12 +62,68 @@ export default function RecGrid() {
   return (
     <section className="mx-auto max-w-5xl">
       <motion.h2
-        className="font-display text-2xl font-semibold text-coastal-navy md:text-3xl"
+        className="flex items-center gap-3 font-display text-2xl font-semibold text-coastal-navy md:text-3xl"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        Seattle Starter Pack
+        <span>Seattle Starter Pack</span>
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 32 40"
+          className="h-8 w-6 text-coastal-navy/70"
+        >
+          {/* simple Space Needle doodle */}
+          {/* saucer */}
+          <path
+            d="M10 16 C 13 13 19 13 22 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+          <path
+            d="M9 18 C 13 21 19 21 23 18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+          {/* tower */}
+          <path
+            d="M16 18 V 8"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+          {/* spire */}
+          <path
+            d="M16 8 V 3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+          {/* legs */}
+          <path
+            d="M12 24 L16 18 L20 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          {/* base hint */}
+          <path
+            d="M9 26 H23"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            strokeLinecap="round"
+            opacity="0.7"
+          />
+        </svg>
       </motion.h2>
       <motion.p
         className="mt-2 text-gray-600"
@@ -77,6 +134,11 @@ export default function RecGrid() {
         A few spots and tips to get you started. Filter by category and location,
         and add your own as you explore.
       </motion.p>
+
+      <div className="mt-6">
+        <BellevuePinMap />
+      </div>
+
       <div className="mt-4 space-y-3">
         <LocationFilters active={activeLocation} onSelect={setActiveLocation} />
         <Filters active={activeCategory} onSelect={handleCategoryChange} />

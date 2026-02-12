@@ -5,11 +5,14 @@ import Countdown from "@/components/Countdown";
 import OpenWhenLetters from "@/components/OpenWhenLetters";
 import TopNav from "@/components/TopNav";
 import BackToTop from "@/components/BackToTop";
+import MarginDoodles from "@/components/MarginDoodles";
 import { openWhenLetterNotes } from "@/data/openWhenLetters";
 
 export default function Home() {
   return (
-    <main className="min-h-screen mx-auto max-w-6xl px-4 pt-2 pb-12 md:px-6 md:pt-4 md:pb-16">
+    <div className="relative min-h-screen">
+      <MarginDoodles />
+      <main className="relative z-10 min-h-screen mx-auto max-w-6xl px-4 pt-2 pb-12 md:px-6 md:pt-4 md:pb-16">
       <div className="min-h-screen flex flex-col">
         <TopNav />
         <Hero />
@@ -32,6 +35,7 @@ export default function Home() {
         <p className="text-sm text-gray-500"> © 2026 Vibe Coded by Bella {"<3"}</p>
       </footer>
       <BackToTop />
-    </main>
+      </main>
+    </div>
   );
 }

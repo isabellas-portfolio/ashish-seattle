@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface OpenWhenLetterProps {
@@ -9,7 +9,12 @@ export interface OpenWhenLetterProps {
   message: string;
   unlocked?: boolean;
   onRequestUnlock?: () => void;
+  initialOpen?: boolean;
 }
+
+const ENVELOPE_WIDTH = 280;
+const FLAP_HEIGHT = 72;
+const SEAL_SIZE = 44;
 
 export default function OpenWhenLetter({
   id,
@@ -17,8 +22,13 @@ export default function OpenWhenLetter({
   message,
   unlocked = true,
   onRequestUnlock,
+  initialOpen = false,
 }: OpenWhenLetterProps) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (unlocked && initialOpen) setOpen(true);
+  }, [unlocked, initialOpen]);
 
   const handleClick = () => {
     if (!unlocked) {
@@ -29,8 +39,11 @@ export default function OpenWhenLetter({
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto" style={{ perspective: "1200px" }}>
-      <div
+    <div
+      className="w-full max-w-[280px] mx-auto"
+      style={{ perspective: "1200px" }}
+    >
+      <motion.div
         className="cursor-pointer select-none"
         onClick={handleClick}
         role="button"
@@ -44,6 +57,12 @@ export default function OpenWhenLetter({
         }}
         aria-expanded={open}
         aria-label={open ? `Close letter: ${title}` : `Open letter: ${title}`}
+        initial={false}
+        whileHover={{
+          y: -6,
+          transition: { duration: 0.2 },
+        }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
         <AnimatePresence mode="wait">
           {!open ? (
@@ -52,34 +71,99 @@ export default function OpenWhenLetter({
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="relative overflow-hidden rounded-2xl bg-[#faf6f0] shadow-[0_4px_20px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] min-h-[200px] flex flex-col items-center justify-center p-6 pb-8 border border-amber-100/80"
+              className="relative rounded-b-xl overflow-visible"
+              style={{
+                width: ENVELOPE_WIDTH,
+                minHeight: 200,
+                boxShadow:
+                  "0 6px 24px rgba(42, 61, 102, 0.08), 0 2px 8px rgba(0,0,0,0.04)",
+              }}
             >
-              {/* Envelope flap – pale blue liner */}
-              <motion.div
-                className="absolute inset-x-0 top-0 h-16 rounded-t-2xl bg-[#DDE8F4] border-b border-coastal-soft flex items-center justify-center origin-bottom"
-                style={{ transformStyle: "preserve-3d" }}
-                initial={{ rotateX: 0 }}
-                animate={{ rotateX: 0 }}
-                transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+              {/* Envelope body (paper) */}
+              <div
+                className="envelope-body relative rounded-b-xl border border-amber-200/60 border-t-0 pt-0 overflow-hidden"
+                style={{
+                  minHeight: 200,
+                  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.5)",
+                }}
               >
-                <span className="text-2xl" aria-hidden>💌</span>
-              </motion.div>
+                {/* Inner liner – pale blue, visible under flap */}
+                <div
+                  className="envelope-liner absolute left-0 right-0 top-0 border-b border-coastal-soft/80"
+                  style={{ height: FLAP_HEIGHT + 20 }}
+                />
 
-              {/* Hint text */}
-              <p className="font-display text-lg text-[#2A3D66] mt-4 text-center z-10">
-                {title}
-              </p>
-              <p className="text-sm text-coastal-navy/70 mt-1">Click to open</p>
+                {/* Triangular flap */}
+                <motion.div
+                  className="envelope-flap absolute left-0 right-0 top-0 z-10 envelope-body border border-amber-200/60 border-b-0"
+                  style={{
+                    height: FLAP_HEIGHT,
+                    width: ENVELOPE_WIDTH,
+                    transformOrigin: "50% 100%",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
+                  }}
+                  whileHover={{
+                    rotate: [0, -0.8, 0.8, 0],
+                    transition: { duration: 0.4 },
+                  }}
+                />
 
-              {/* Heart seal – rose accent */}
-              <motion.div
-                className="absolute top-5 left-1/2 -translate-x-1/2 w-11 h-11 rounded-full bg-coastal-rose flex items-center justify-center text-white shadow-[0_2px_8px_rgba(196,132,151,0.3)] border border-coastal-rose/80"
-                initial={{ scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                <span className="text-xl leading-none">♥</span>
-              </motion.div>
+                {/* Wax seal on flap (at fold line) */}
+                <motion.div
+                  className={
+                    unlocked
+                      ? "envelope-seal-unlocked absolute left-1/2 z-20 flex items-center justify-center rounded-full border-2 text-white"
+                      : "envelope-seal-locked absolute left-1/2 z-20 flex items-center justify-center rounded-full border-2 text-white"
+                  }
+                  style={{
+                    width: SEAL_SIZE,
+                    height: SEAL_SIZE,
+                    marginLeft: -SEAL_SIZE / 2,
+                    top: FLAP_HEIGHT - SEAL_SIZE / 2,
+                    backgroundColor: unlocked ? "#C48497" : "#2A3D66",
+                    borderColor: unlocked
+                      ? "rgba(196, 132, 151, 0.6)"
+                      : "rgba(42, 61, 102, 0.5)",
+                  }}
+                >
+                  {unlocked ? (
+                    <span className="text-xl leading-none" aria-hidden>
+                      ♥
+                    </span>
+                  ) : (
+                    <svg
+                      className="w-5 h-5 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
+                </motion.div>
+
+                {/* Title – lower half of envelope, below flap */}
+                <div
+                  className="relative z-30 px-4 pb-6 text-center"
+                  style={{
+                    paddingTop: FLAP_HEIGHT + 20,
+                  }}
+                >
+                  <p
+                    className="font-handwriting text-coastal-navy text-lg"
+                    style={{ textShadow: "0 1px 0 rgba(255,255,255,0.8)" }}
+                  >
+                    {title}
+                  </p>
+                  <p className="text-xs text-coastal-navy/60 mt-2">
+                    {unlocked ? "Click to open" : "Click to unlock"}
+                  </p>
+                </div>
+              </div>
             </motion.div>
           ) : (
             <motion.div
@@ -88,35 +172,46 @@ export default function OpenWhenLetter({
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2 }}
               className="relative"
+              style={{ width: ENVELOPE_WIDTH, perspective: "800px" }}
             >
-              {/* Envelope body (stays) with flap lifted */}
-              <div className="relative overflow-hidden rounded-2xl bg-[#faf6f0] shadow-[0_4px_20px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.04)] border border-amber-100/80 min-h-[200px]">
-                {/* Flap (lifted) – pale blue liner */}
+              <div
+                className="envelope-body relative rounded-xl border border-amber-200/60 overflow-hidden min-h-[200px]"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {/* Flap lifted (triangle flipped up) */}
                 <motion.div
-                  className="absolute inset-x-0 top-0 h-16 rounded-t-2xl bg-[#DDE8F4] border-b border-coastal-soft origin-bottom flex items-center justify-center"
-                  style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
+                  className="envelope-flap envelope-body absolute left-0 right-0 border border-amber-200/60"
+                  style={{
+                    height: FLAP_HEIGHT,
+                    width: ENVELOPE_WIDTH,
+                    top: 0,
+                    transformOrigin: "50% 100%",
+                    boxShadow: "0 -2px 8px rgba(0,0,0,0.06)",
+                    backfaceVisibility: "hidden",
+                  }}
                   initial={{ rotateX: 0 }}
-                  animate={{ rotateX: -110 }}
-                  transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
-                >
-                  <span className="text-2xl opacity-80" aria-hidden>💌</span>
-                </motion.div>
+                  animate={{ rotateX: -100 }}
+                  transition={{
+                    duration: 0.45,
+                    ease: [0.33, 1, 0.68, 1],
+                  }}
+                />
 
-                {/* Letter slides out and unfolds */}
+                {/* Letter paper */}
                 <motion.div
-                  className="letter-paper font-handwriting relative mt-14 mx-3 mb-4 rounded-xl bg-[#fdf8f0] p-5 pb-6 border border-amber-200/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
-                  initial={{ opacity: 0, y: 16, scaleY: 0.92 }}
+                  className="letter-paper relative mt-12 mx-3 mb-4 rounded-lg p-5 pb-6 border border-amber-200/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]"
+                  initial={{ opacity: 0, y: 12, scaleY: 0.96 }}
                   animate={{ opacity: 1, y: 0, scaleY: 1 }}
                   transition={{
-                    duration: 0.5,
-                    delay: 0.15,
+                    duration: 0.4,
+                    delay: 0.12,
                     ease: [0.33, 1, 0.68, 1],
                   }}
                 >
-                  <h3 className="text-2xl font-semibold text-[#2A3D66] mb-3">
+                  <h3 className="text-xl font-semibold text-coastal-navy mb-3 font-display">
                     {title}
                   </h3>
-                  <p className="text-lg leading-relaxed text-[#2A3D66] whitespace-pre-line">
+                  <p className="font-handwriting text-base leading-relaxed text-coastal-navy whitespace-pre-line">
                     {message}
                   </p>
                 </motion.div>
@@ -124,7 +219,7 @@ export default function OpenWhenLetter({
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   );
 }

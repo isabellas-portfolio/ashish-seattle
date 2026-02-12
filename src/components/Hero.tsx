@@ -35,7 +35,7 @@ export default function Hero() {
         />
 
         {/* Inner card: overflow-hidden so content respects rounded corners */}
-        <div className="overflow-hidden rounded-[32px] border border-coastal-soft bg-white/80 shadow-soft">
+        <div className="relative overflow-hidden rounded-[32px] border border-coastal-soft bg-white/80 shadow-soft">
           {/* Paper grain overlay (subtle) */}
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.03] rounded-[32px]"
@@ -51,7 +51,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.4 }}
             >
-              Ashish&apos;s Guide to Navigating Seattle: With Love, Bella 💌
+              Ashish&apos;s Guide to Navigating Seattle:
+              <br />
+              With Love, Bella 💌
             </motion.h1>
             <motion.p
               className="mt-4 text-lg leading-relaxed text-gray-600 md:text-xl"

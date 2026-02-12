@@ -6,30 +6,23 @@ import type { OpenWhenLetterNote } from "@/types";
 import OpenWhenLetter from "./OpenWhenLetter";
 import PasscodeModal from "./PasscodeModal";
 
-const STORAGE_UNLOCKED = "lettersUnlocked";
-const STORAGE_UNLOCKED_AT = "lettersUnlockedAt";
+const STORAGE_OPENED_IDS = "openedLetterIds";
 
-function getStoredUnlocked(): boolean {
-  if (typeof window === "undefined") return false;
-  return localStorage.getItem(STORAGE_UNLOCKED) === "true";
-}
-
-function getStoredUnlockedAt(): string | null {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem(STORAGE_UNLOCKED_AT);
-}
-
-function formatOpenedDate(iso: string): string {
+function getStoredOpenedIds(): string[] {
+  if (typeof window === "undefined") return [];
   try {
-    const d = new Date(iso);
-    return d.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
+    const raw = localStorage.getItem(STORAGE_OPENED_IDS);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as unknown;
+    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
   } catch {
-    return "";
+    return [];
   }
+}
+
+function persistOpenedIds(ids: string[]): void {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(STORAGE_OPENED_IDS, JSON.stringify(ids));
 }
 
 interface OpenWhenLettersProps {
@@ -37,23 +30,29 @@ interface OpenWhenLettersProps {
 }
 
 export default function OpenWhenLetters({ notes }: OpenWhenLettersProps) {
-  const [unlocked, setUnlocked] = useState(false);
-  const [unlockedAt, setUnlockedAt] = useState<string | null>(null);
+  const [openedIds, setOpenedIds] = useState<Set<string>>(new Set());
   const [showPasscodeModal, setShowPasscodeModal] = useState(false);
+  const [activeLetterId, setActiveLetterId] = useState<string | null>(null);
+  const [pendingOpenId, setPendingOpenId] = useState<string | null>(null);
 
   useEffect(() => {
-    setUnlocked(getStoredUnlocked());
-    setUnlockedAt(getStoredUnlockedAt());
+    setOpenedIds(new Set(getStoredOpenedIds()));
   }, []);
 
   const handleUnlockSuccess = useCallback(() => {
-    const at = new Date().toISOString();
-    setUnlocked(true);
-    setUnlockedAt(at);
-    localStorage.setItem(STORAGE_UNLOCKED, "true");
-    localStorage.setItem(STORAGE_UNLOCKED_AT, at);
+    if (!activeLetterId) return;
+    const next = new Set(openedIds);
+    next.add(activeLetterId);
+    setOpenedIds(next);
+    persistOpenedIds([...next]);
+    setPendingOpenId(activeLetterId);
+    setActiveLetterId(null);
     setShowPasscodeModal(false);
-  }, []);
+    setTimeout(() => setPendingOpenId(null), 300);
+  }, [activeLetterId, openedIds]);
+
+  const openCount = openedIds.size;
+  const totalCount = notes.length;
 
   return (
     <section className="mx-auto max-w-4xl">
@@ -67,22 +66,15 @@ export default function OpenWhenLetters({ notes }: OpenWhenLettersProps) {
       </motion.h2>
 
       <div className="mt-2 flex flex-wrap items-center gap-2">
-        {unlocked ? (
-          <>
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-coastal-soft bg-coastal-soft/50 px-3 py-1 text-sm font-medium text-coastal-navy">
-              <span aria-hidden>💕</span>
-              Unlocked
-            </span>
-            {unlockedAt && (
-              <span className="text-xs text-coastal-navy/70">
-                Opened on {formatOpenedDate(unlockedAt)}
-              </span>
-            )}
-          </>
-        ) : (
+        {openCount === 0 ? (
           <span className="inline-flex items-center gap-1.5 rounded-full border border-coastal-soft bg-white px-3 py-1 text-sm font-medium text-coastal-navy">
             <span aria-hidden>🔒</span>
             Sealed 💌
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-coastal-soft bg-coastal-soft/50 px-3 py-1 text-sm font-medium text-coastal-navy">
+            <span aria-hidden>💕</span>
+            {openCount}/{totalCount} opened
           </span>
         )}
       </div>
@@ -93,9 +85,9 @@ export default function OpenWhenLetters({ notes }: OpenWhenLettersProps) {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        {unlocked
-          ? "Little love notes for when you need them. Click to open."
-          : "Little love notes for when you need them. Enter the passcode to open."}
+        {openCount === 0
+          ? "Little love notes for when you need them. Enter the passcode to open each one."
+          : "Little love notes for when you need them. Click to open."}
       </motion.p>
 
       <ul className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -111,8 +103,12 @@ export default function OpenWhenLetters({ notes }: OpenWhenLettersProps) {
               id={note.id}
               title={note.title}
               message={note.message}
-              unlocked={unlocked}
-              onRequestUnlock={() => setShowPasscodeModal(true)}
+              unlocked={openedIds.has(note.id)}
+              onRequestUnlock={() => {
+                setActiveLetterId(note.id);
+                setShowPasscodeModal(true);
+              }}
+              initialOpen={pendingOpenId === note.id}
             />
           </motion.li>
         ))}
@@ -120,7 +116,10 @@ export default function OpenWhenLetters({ notes }: OpenWhenLettersProps) {
 
       <PasscodeModal
         isOpen={showPasscodeModal}
-        onClose={() => setShowPasscodeModal(false)}
+        onClose={() => {
+          setShowPasscodeModal(false);
+          setActiveLetterId(null);
+        }}
         onSuccess={handleUnlockSuccess}
       />
     </section>

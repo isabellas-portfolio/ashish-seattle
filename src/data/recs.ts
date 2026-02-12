@@ -16,10 +16,21 @@ export const seattleRecs: SeattleRec[] = [
     category: "food",
     location: "Seattle",
     description:
-      "The iconic market with fresh flowers, fish tossing, and local bites. Go early to beat the crowds and grab a piroshky.",
-    whyPicked: "It's the Seattle postcard for a reason—you'll feel like you've arrived.",
+      "according to Google, an iconic daily market with famed fish-throwing (and other shops!)",
+    whyPicked: "got this rec from Sami!!",
     link: "https://pikeplacemarket.org",
     cuisine: "Various",
+  },
+  {
+    id: "1a",
+    title: "Original Starbucks (Pike Place)",
+    category: "coffee",
+    location: "Seattle",
+    description:
+      "the first Starbucks store, tucked inside Pike Place Market",
+    whyPicked:
+      "touristy but cute, get an iced hazelnut latte for me!!.",
+    workFriendly: false,
   },
   {
     id: "2",
@@ -27,10 +38,76 @@ export const seattleRecs: SeattleRec[] = [
     category: "food",
     location: "Seattle",
     description:
-      "Cozy French bistro in Pike Place. Perfect for a slow weekend brunch or date night.",
-    whyPicked: "Feels like a little escape without leaving the city.",
+      "a lil parisian french bistro in pike place market",
+    whyPicked: "go get some wine and some escargot",
     link: "https://campagnerestaurant.com",
-    cuisine: "French",
+  },
+  {
+    id: "2a",
+    title: "Marination",
+    category: "food",
+    location: "Seattle",
+    description:
+      "Hawaiian-Korean food (tacos, sliders, kimchi fried rice) with views of the water.",
+    whyPicked:
+      "try out something new! and sami said this was really good",
+    link: "https://marinationmobile.com",
+    cuisine: "Asian",
+  },
+  {
+    id: "2b",
+    title: "Di Fiora",
+    category: "food",
+    location: "Seattle",
+    description:
+      "cozy spot on Capitol Hill doing Thai-meets-Italian comfort food and pretty cocktails.",
+    whyPicked:
+      "a fun fusion place! try the THAI",
+    cuisine: "Asian",
+  },
+  {
+    id: "2c",
+    title: "Flour Box",
+    category: "food",
+    location: "Seattle",
+    description:
+      "adorable donut shop in Columbia City with filled brioche donuts and seasonal flavors.",
+    whyPicked:
+      "gotta do a donut run",
+    cuisine: "Various",
+  },
+  {
+    id: "2d",
+    title: "Vietnam House",
+    category: "food",
+    location: "Seattle",
+    description:
+      "cozy Vietnamese spot in Chinatown–International District for pho, rice plates, and comfort food.",
+    whyPicked:
+      "if you need some yummy pho 😋🍜",
+    cuisine: "Asian",
+  },
+  {
+    id: "2e",
+    title: "Japonessa Sushi",
+    category: "food",
+    location: "Seattle",
+    description:
+      "fusion and modern sushi vibes with fun rolls, sashimi, and cocktails downtown.",
+    whyPicked:
+      "this sushi looks sooo good and very cool, right up your alley",
+    cuisine: "Asian",
+  },
+  {
+    id: "2f",
+    title: "Honey Court & Purple Dot",
+    category: "food",
+    location: "Seattle",
+    description:
+      "late-night Chinese food in Chinatown",
+    whyPicked:
+      "for when you need 1 a.m. dumplings or noodles after a long day",
+    cuisine: "Asian",
   },
   {
     id: "3",
@@ -38,8 +115,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "coffee",
     location: "Seattle",
     description:
-      "Seattle's beloved roaster. The Capitol Hill sidewalk stand is the move for a perfect latte.",
-    whyPicked: "This is where Seattle's coffee culture really shines.",
+      "espresso bar in capitol hill!!",
+    whyPicked: "you have to try the espresso and report back to me, also from user Total_Def-note on reddit quote \"Espresso Vivace ruined me\"",
     link: "https://espressovivace.com",
     workFriendly: true,
   },
@@ -49,8 +126,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "coffee",
     location: "Seattle",
     description:
-      "Minimal, bright Pioneer Square spot. Great for working or a quiet catch-up.",
-    whyPicked: "Calm vibes and really good single-origin.",
+      "quiet cozy coffee shop in pioneer square",
+    whyPicked: "it looks really cute inside and all their lattes have hearts on them",
     workFriendly: true,
   },
   {
@@ -59,8 +136,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "outdoors",
     location: "Seattle",
     description:
-      "Huge park with trails, beach, and lighthouse views. Best sunset spot in the city.",
-    whyPicked: "You get forest, beach, and skyline in one place.",
+      "a 534-acre, free urban oasis on Puget Sound featuring 11.81 miles of trails, beaches, and the historic West Point Lighthouse",
+    whyPicked: "you gotta go hiking here it looks so cool ",
   },
   {
     id: "6",
@@ -68,8 +145,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "outdoors",
     location: "Seattle",
     description:
-      "Long beach walk with Seattle skyline views. Good for bikes, walks, or just sitting with coffee.",
-    whyPicked: "Feels like a mini West Coast getaway.",
+      "pretty beach in west seattle, with views of the sound and the skyline",
+    whyPicked: "looks pretty to walk or bike!!",
   },
   {
     id: "7",
@@ -77,8 +154,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "neighborhoods",
     location: "Seattle",
     description:
-      "Restaurants, bars, bookstores, and queer-friendly nightlife. Broadway and 15th are the main strips.",
-    whyPicked: "Where a lot of Seattle's energy and community lives.",
+      "cute and quirky neighborhood in seattle, with a lot of indie shops, bars, and restaurants",
+    whyPicked: "looks like cool scene with music and stuff! and where the young people are",
   },
   {
     id: "8",
@@ -86,8 +163,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "neighborhoods",
     location: "Seattle",
     description:
-      "The \"Center of the Universe\" with the troll, Sunday market, and quirky shops.",
-    whyPicked: "Weird and fun—very Seattle.",
+      "indie shops, bohemian vibe, apparently tech and music people hang out here",
+    whyPicked: "cool street art and good food apparently",
   },
   {
     id: "9",
@@ -95,8 +172,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "culture",
     location: "Seattle",
     description:
-      "Museum of Pop Culture: music, sci-fi, and interactive exhibits. The building alone is worth it.",
-    whyPicked: "Unique and actually fun, not stuffy.",
+      "museum of pop culture: music, sci-fi, and interactive exhibits",
+    whyPicked: "founded by microsoft! building looks super cool and sci fi! so you might enjoy",
     link: "https://www.mopop.org",
   },
   {
@@ -105,17 +182,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "culture",
     location: "Seattle",
     description:
-      "Independent bookstore in Capitol Hill. Wood shelves, readings, and that perfect bookshop smell.",
-    whyPicked: "The kind of place you'll keep going back to.",
-  },
-  {
-    id: "11",
-    title: "Get a Sno-Park pass (winter)",
-    category: "practical",
-    location: "Seattle",
-    description:
-      "If you plan to hit the mountains for snow play or skiing, you need a Sno-Park permit for parking.",
-    whyPicked: "Saves you a ticket and stress—worth it for one trip.",
+      "independent bookstore, multi-level in Capitol Hill",
+    whyPicked: "this might be more for me but you should check it out for me 🤗",
   },
   {
     id: "12",
@@ -123,8 +191,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "practical",
     location: "Seattle",
     description:
-      "Transit card for buses, Link light rail, and ferries. Load it once and tap everywhere.",
-    whyPicked: "Makes getting around feel easy from day one.",
+      "Transit card for buses, Link light rail, and ferries. Load it once and tap everywhere",
+    whyPicked: "gotta get to work!",
   },
   {
     id: "13",
@@ -136,6 +204,50 @@ export const seattleRecs: SeattleRec[] = [
     whyPicked: "Sami had a ferrero rocher latte here and you must try it and we also must try together",
     workFriendly: true,
   },
+  {
+    id: "13a",
+    title: "Coffeeholic House",
+    category: "coffee",
+    location: "Seattle",
+    description:
+      "Vietnamese-inspired coffee shop known for phin brews and cute cups",
+    whyPicked:
+      "looks like such a fun coffee date spot, please try a fancy drink here.",
+    link: "https://coffeeholichouse.com",
+    workFriendly: true,
+  },
+  {
+    id: "14",
+    title: "Skalka",
+    category: "food",
+    location: "Seattle",
+    description:
+      "georgian bakery downtown with khachapuri, cheesy breads, and strong coffee",
+    whyPicked:
+      "another sami rec! sounds cool and unique",
+    link: "https://skalkabakery.com",
+    cuisine: "Various",
+  },
+  {
+    id: "15",
+    title: "Space Needle",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "iconic seattle landmark",
+    whyPicked: "observation tower with amazing views!",
+  },
+  {
+    id: "16",
+    title: "Amazon Spheres",
+    category: "culture",
+    location: "Seattle",
+    description:
+      "three glass biospheres at Amazon HQ filled with tropical plants, trees, and skybridges",
+    whyPicked:
+      "very sci‑fi plant bubble vibes, definitely seems like a cool place to visit!",
+    link: "https://www.seattlespheres.com",
+  },
   // Bellevue recommendations
   {
     id: "b1",
@@ -143,7 +255,7 @@ export const seattleRecs: SeattleRec[] = [
     category: "neighborhoods",
     location: "Bellevue",
     description:
-      "The heart of Bellevue—shopping, restaurants, and a walkable downtown. Great for lunch breaks and weekend strolls.",
+      "very big mall, 200 shops, restaurants, and a walkable downtown",
     whyPicked: "Your work neighborhood, so easy to explore during the day.",
   },
   {
@@ -152,7 +264,7 @@ export const seattleRecs: SeattleRec[] = [
     category: "outdoors",
     location: "Bellevue",
     description:
-      "Waterfront park with a beach, walking paths, and views of Lake Washington. Perfect for a quick escape.",
+      "a waterfront park with a beach, walking paths, and views of Lake Washington",
     whyPicked: "Close to downtown and feels like a mini getaway.",
   },
   {
@@ -161,8 +273,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "outdoors",
     location: "Bellevue",
     description:
-      "Beautiful gardens with trails, seasonal displays, and a peaceful vibe. Free admission.",
-    whyPicked: "A calm spot to reset after work or on weekends.",
+      "beautiful gardens with trails & free admission",
+    whyPicked: "could be cute for a walk or some aesthetic pics",
   },
   {
     id: "b4",
@@ -170,8 +282,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "coffee",
     location: "Bellevue",
     description:
-      "Local roaster in downtown Bellevue. Great coffee, good vibes, and a solid spot to work or meet up.",
-    whyPicked: "Quality coffee right where you work—no commute needed.",
+      "local roaster in downtown Bellevue",
+    whyPicked: "when you need a little pick me up during the work day 😋",
     workFriendly: true,
   },
   {
@@ -180,8 +292,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "food",
     location: "Bellevue",
     description:
-      "Famous soup dumplings and Taiwanese food. Usually a wait, but worth it. Bellevue Square location.",
-    whyPicked: "A Seattle-area favorite—perfect for a treat after work.",
+      "famous soup dumplings and taiwanese food and chocolate dumplingsss",
+    whyPicked: "obvi not seattle unique but din tai fung is soooo good",
     cuisine: "Asian",
   },
   {
@@ -190,26 +302,17 @@ export const seattleRecs: SeattleRec[] = [
     category: "neighborhoods",
     location: "Bellevue",
     description:
-      "Diverse area with international food, shops, and a community feel. Different vibe from downtown.",
-    whyPicked: "More local and less corporate—good for exploring.",
-  },
-  {
-    id: "b7",
-    title: "Kelsey Creek Farm",
-    category: "outdoors",
-    location: "Bellevue",
-    description:
-      "Historic farm with animals, trails, and open space. Cute and low-key for a walk or picnic.",
-    whyPicked: "Quiet and charming—nice contrast to the city.",
+      "known for the international food, shops, and a community feel",
+    whyPicked: "more cutesy less corporate vibe",
   },
   {
     id: "b8",
-    title: "Bellevue Arts Museum",
+    title: "Seattle Pinball Museum",
     category: "culture",
-    location: "Bellevue",
+    location: "Seattle",
     description:
-      "Small but thoughtful art museum. Rotating exhibits and a nice way to spend an hour or two.",
-    whyPicked: "Culture without the Seattle crowds.",
+      "unlimited pinball, cool and vintage spot",
+    whyPicked: "unlimited games, or no games?",
   },
   {
     id: "b9",
@@ -217,8 +320,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "outdoors",
     location: "Bellevue",
     description:
-      "Trail system through neighborhoods and green spaces. Good for running, walking, or just being outside.",
-    whyPicked: "Easy access to nature without leaving Bellevue.",
+      "trail system through neighborhoods and green spaces",
+    whyPicked: "access to nature in bellevue!",
   },
   {
     id: "b10",
@@ -226,8 +329,8 @@ export const seattleRecs: SeattleRec[] = [
     category: "food",
     location: "Bellevue",
     description:
-      "Upscale steakhouse for a special dinner or date night. Bellevue location is polished and cozy.",
-    whyPicked: "Nice spot for celebrating or treating yourself.",
+      "upscale steakhouse for a special dinner in bellevue! ",
+    whyPicked: "gotta find you the steak",
     cuisine: "American",
   },
 ];

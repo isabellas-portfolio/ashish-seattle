@@ -30,7 +30,7 @@ export default function RecCard({ rec, index }: RecCardProps) {
           </span>
         )}
         <p className="mt-3 text-xs font-medium text-coastal-navy/90">
-          Why I picked this: {rec.whyPicked}
+          {rec.whyPicked}
         </p>
       </div>
       {rec.link && (
