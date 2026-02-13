@@ -17,6 +17,8 @@ export type Cuisine =
   | "Mediterranean"
   | "Various";
 
+export type HikeDifficulty = "Easy" | "Med" | "Hard" | "Hard Hard";
+
 export interface SeattleRec {
   id: string;
   title: string;
@@ -27,6 +29,8 @@ export interface SeattleRec {
   link?: string;
   workFriendly?: boolean;
   cuisine?: Cuisine;
+  difficulty?: HikeDifficulty;
+  isTopPick?: boolean;
 }
 
 export interface DateIdea {

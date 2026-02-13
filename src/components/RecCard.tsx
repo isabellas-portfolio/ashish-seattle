@@ -18,9 +18,26 @@ export default function RecCard({ rec, index }: RecCardProps) {
       whileHover={{ y: -2 }}
     >
       <div className="flex flex-1 flex-col">
-        <h3 className="font-display text-lg font-semibold text-coastal-navy group-hover:text-coastal-primary">
-          {rec.title}
-        </h3>
+        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="font-display text-lg font-semibold text-coastal-navy group-hover:text-coastal-primary">
+            {rec.title}
+          </h3>
+          {rec.difficulty && (
+            <span
+              className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
+                rec.difficulty === "Easy"
+                  ? "bg-emerald-100 text-emerald-800"
+                  : rec.difficulty === "Med"
+                    ? "bg-amber-100 text-amber-800"
+                    : rec.difficulty === "Hard"
+                      ? "bg-orange-100 text-orange-800"
+                      : "bg-red-100 text-red-800"
+              }`}
+            >
+              {rec.difficulty}
+            </span>
+          )}
+        </div>
         <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
           {rec.description}
         </p>

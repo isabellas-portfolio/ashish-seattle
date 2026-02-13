@@ -20,6 +20,7 @@ export const seattleRecs: SeattleRec[] = [
     whyPicked: "got this rec from Sami!!",
     link: "https://pikeplacemarket.org",
     cuisine: "Various",
+    isTopPick: true,
   },
   {
     id: "1a",
@@ -119,6 +120,7 @@ export const seattleRecs: SeattleRec[] = [
     whyPicked: "you have to try the espresso and report back to me, also from user Total_Def-note on reddit quote \"Espresso Vivace ruined me\"",
     link: "https://espressovivace.com",
     workFriendly: true,
+    isTopPick: true,
   },
   {
     id: "4",
@@ -136,8 +138,9 @@ export const seattleRecs: SeattleRec[] = [
     category: "outdoors",
     location: "Seattle",
     description:
-      "a 534-acre, free urban oasis on Puget Sound featuring 11.81 miles of trails, beaches, and the historic West Point Lighthouse",
+      "a 534-acre, free urban oasis on Puget Sound featuring 11.81 miles of trails, hikes, beaches, and the historic West Point Lighthouse",
     whyPicked: "you gotta go hiking here it looks so cool ",
+    isTopPick: true,
   },
   {
     id: "6",
@@ -156,6 +159,7 @@ export const seattleRecs: SeattleRec[] = [
     description:
       "cute and quirky neighborhood in seattle, with a lot of indie shops, bars, and restaurants",
     whyPicked: "looks like cool scene with music and stuff! and where the young people are",
+    isTopPick: true,
   },
   {
     id: "8",
@@ -184,6 +188,7 @@ export const seattleRecs: SeattleRec[] = [
     description:
       "independent bookstore, multi-level in Capitol Hill",
     whyPicked: "this might be more for me but you should check it out for me 🤗",
+    isTopPick: true,
   },
   {
     id: "12",
@@ -229,6 +234,66 @@ export const seattleRecs: SeattleRec[] = [
     cuisine: "Various",
   },
   {
+    id: "14a",
+    title: "La Medusa",
+    category: "food",
+    location: "Seattle",
+    description:
+      "Italian restaurant in Columbia City, best for small plates",
+    whyPicked: "looks yummy!!",
+    cuisine: "Italian",
+  },
+  {
+    id: "14b",
+    title: "Persephone",
+    category: "food",
+    location: "Seattle",
+    description:
+      "aperitivo bar next to La Medusa; small menu with rotating small plates and Sicilian street food.",
+    whyPicked: "get some wine and some little dishes",
+    cuisine: "Italian",
+  },
+  {
+    id: "14c",
+    title: "Delancey",
+    category: "food",
+    location: "Seattle",
+    description:
+      "New York–style pizza with seasonal, locally driven toppings",
+    whyPicked: "cappys dupe??",
+    cuisine: "Italian",
+  },
+  {
+    id: "14d",
+    title: "Stoneburner",
+    category: "food",
+    location: "Seattle",
+    description:
+      "Italian spot known for really good carbonara, and their constantly rotating menu of dishes",
+    whyPicked: "really good carbonara!!",
+    cuisine: "Italian",
+  },
+  {
+    id: "14e",
+    title: "Pasta Casalinga",
+    category: "food",
+    location: "Seattle",
+    description:
+      "housemade pasta in pike place, you can watch it being made! and huge portions",
+    whyPicked: "you should try the wild boar ragu!! :O",
+    cuisine: "Italian",
+  },
+  {
+    id: "14f",
+    title: "Betsutenjin",
+    category: "food",
+    location: "Seattle",
+    description:
+      "cute ramen shop in Capitol Hill, open till 2am.",
+    whyPicked: "late-night ramen spot when you need a bowl!",
+    cuisine: "Asian",
+  },
+  {
     id: "15",
     title: "Space Needle",
     category: "outdoors",
@@ -236,6 +301,77 @@ export const seattleRecs: SeattleRec[] = [
     description:
       "iconic seattle landmark",
     whyPicked: "observation tower with amazing views!",
+    isTopPick: true,
+  },
+  {
+    id: "15a",
+    title: "Amy Yee Tennis Center",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "City-run facility just south of downtown (2000 Martin Luther King Jr Way S) with 10 indoor courts and 6 outdoor courts. One of the best public tennis spots in Seattle!",
+    whyPicked: "had to find you a tennis court in seattle! 🎾",
+    isTopPick: true,
+  },
+  {
+    id: "h1",
+    title: "Rattlesnake Ridge",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "popular trail near North Bend with a steep climb to ledge views over Rattlesnake Ledge and the lake below",
+    whyPicked: "classic Seattle-area hike! doable as an easy day",
+    difficulty: "Easy",
+  },
+  {
+    id: "h2",
+    title: "Lake 22",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "forest and alpine lake in the Mountain Loop area with a moderate climb to a scenic lake basin",
+    whyPicked: "apparently when the lake is thawed it looks great",
+    difficulty: "Med",
+  },
+  {
+    id: "h3",
+    title: "Mailbox Peak",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "steep, punishing climb near North Bend with a mailbox at the top and big views on clear days",
+    whyPicked: "hard but iconic, earn those bragging rights.",
+    difficulty: "Hard",
+  },
+  {
+    id: "h4",
+    title: "Aasgard Pass",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "steep, exposed climb into the Enchantments; serious route with snow and scrambling, expert only.",
+    whyPicked: "if you're feeling really bold and brave do this hike!",
+    difficulty: "Hard Hard",
+  },
+  {
+    id: "h5",
+    title: "Bridal Veil",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "waterfall hike near Index with a moderate climb to views of the 100-foot cascade.",
+    whyPicked: "not too hard & pretty waterfall vibes.",
+    difficulty: "Med",
+  },
+  {
+    id: "h6",
+    title: "Snow Lake",
+    category: "outdoors",
+    location: "Seattle",
+    description:
+      "alpine lake off I-90 with a moderate climb through forest and rocks to a stunning blue lake.",
+    whyPicked: "a classic hike and one of the most popular hikes in the state.",
+    difficulty: "Med",
   },
   {
     id: "16",
@@ -266,6 +402,7 @@ export const seattleRecs: SeattleRec[] = [
     description:
       "a waterfront park with a beach, walking paths, and views of Lake Washington",
     whyPicked: "Close to downtown and feels like a mini getaway.",
+    isTopPick: true,
   },
   {
     id: "b3",

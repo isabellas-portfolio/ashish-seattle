@@ -1,16 +1,32 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { RecCategory, RecLocation, Cuisine } from "@/types";
+import type { SeattleRec } from "@/types";
 import { seattleRecs } from "@/data/recs";
 import Filters from "./Filters";
-import LocationFilters from "./LocationFilters";
-import CuisineFilters from "./CuisineFilters";
 import RecCard from "./RecCard";
 import BellevuePinMap from "./BellevuePinMap";
 
+function searchMatches(rec: SeattleRec, query: string): boolean {
+  if (!query.trim()) return true;
+  const q = query.trim().toLowerCase();
+  const text = [
+    rec.title,
+    rec.description,
+    rec.whyPicked,
+    rec.category,
+    rec.location,
+    rec.cuisine ?? "",
+  ]
+    .join(" ")
+    .toLowerCase();
+  return text.includes(q);
+}
+
 export default function RecGrid() {
+  const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<
     RecCategory | "all" | "wfh-friendly"
   >("all");
@@ -18,29 +34,33 @@ export default function RecGrid() {
     "All"
   );
   const [activeCuisine, setActiveCuisine] = useState<Cuisine | "all">("all");
+  const [visibleCount, setVisibleCount] = useState(12);
 
   const filtered = useMemo(() => {
     let result = seattleRecs;
 
-    // Filter by category or WFH-friendly
+    // 1) Search (case-insensitive on title, description, whyPicked, category, location, cuisine)
+    result = result.filter((r) => searchMatches(r, searchQuery));
+
+    // 2) Location
+    if (activeLocation !== "All") {
+      result = result.filter((r) => r.location === activeLocation);
+    }
+
+    // 3) Category or WFH-friendly
     if (activeCategory === "wfh-friendly") {
       result = result.filter((r) => r.workFriendly === true);
     } else if (activeCategory !== "all") {
       result = result.filter((r) => r.category === activeCategory);
     }
 
-    // Filter by cuisine (only applies when food category is selected)
+    // 4) Cuisine (only when category is Food & eats)
     if (activeCategory === "food" && activeCuisine !== "all") {
       result = result.filter((r) => r.cuisine === activeCuisine);
     }
 
-    // Filter by location
-    if (activeLocation !== "All") {
-      result = result.filter((r) => r.location === activeLocation);
-    }
-
     return result;
-  }, [activeCategory, activeLocation, activeCuisine]);
+  }, [searchQuery, activeCategory, activeLocation, activeCuisine]);
 
   // Reset cuisine filter when category changes away from food
   const handleCategoryChange = (category: RecCategory | "all" | "wfh-friendly") => {
@@ -50,14 +70,24 @@ export default function RecGrid() {
     }
   };
 
-  const bellevueRecs = useMemo(
-    () => filtered.filter((r) => r.location === "Bellevue"),
+  const topPicks = useMemo(
+    () => filtered.filter((r) => r.isTopPick).slice(0, 8),
     [filtered]
   );
-  const seattleRecsFiltered = useMemo(
-    () => filtered.filter((r) => r.location === "Seattle"),
-    [filtered]
+
+  const allSpots = filtered;
+
+  const visibleSpots = useMemo(
+    () => allSpots.slice(0, visibleCount),
+    [allSpots, visibleCount]
   );
+
+  const hasMore = visibleCount < allSpots.length;
+
+  // Reset pagination when filters/search change
+  useEffect(() => {
+    setVisibleCount(12);
+  }, [searchQuery, activeCategory, activeLocation, activeCuisine]);
 
   return (
     <section className="mx-auto max-w-5xl">
@@ -139,72 +169,131 @@ export default function RecGrid() {
         <BellevuePinMap />
       </div>
 
-      <div className="mt-4 space-y-3">
-        <LocationFilters active={activeLocation} onSelect={setActiveLocation} />
-        <Filters active={activeCategory} onSelect={handleCategoryChange} />
-        {activeCategory === "food" && (
-          <CuisineFilters active={activeCuisine} onSelect={setActiveCuisine} />
-        )}
-      </div>
-
-      {activeLocation === "All" ? (
-        <div className="mt-8 space-y-10">
-          {bellevueRecs.length > 0 && (
-            <div>
-              <motion.h3
-                className="mb-4 flex items-center gap-2 font-display text-lg font-medium text-coastal-navy"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                <span>📍</span>
-                <span>Bellevue</span>
-              </motion.h3>
-              <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                <AnimatePresence mode="wait">
-                  {bellevueRecs.map((rec, i) => (
-                    <li key={rec.id}>
-                      <RecCard rec={rec} index={i} />
-                    </li>
-                  ))}
-                </AnimatePresence>
-              </ul>
-            </div>
-          )}
-          {seattleRecsFiltered.length > 0 && (
-            <div>
-              <motion.h3
-                className="mb-4 flex items-center gap-2 font-display text-lg font-medium text-coastal-navy"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-              >
-                <span>📍</span>
-                <span>Seattle</span>
-              </motion.h3>
-              <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                <AnimatePresence mode="wait">
-                  {seattleRecsFiltered.map((rec, i) => (
-                    <li key={rec.id}>
-                      <RecCard rec={rec} index={i} />
-                    </li>
-                  ))}
-                </AnimatePresence>
-              </ul>
-            </div>
+      {/* Search */}
+      <div className="mt-4">
+        <label htmlFor="rec-search" className="sr-only">
+          Search spots
+        </label>
+        <div className="relative">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-coastal-navy/50" aria-hidden>
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </span>
+          <input
+            id="rec-search"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search spots (ramen, espresso, hikes…)"
+            className="w-full rounded-full border-2 border-coastal-soft bg-white py-2.5 pl-11 pr-10 text-coastal-navy placeholder:text-coastal-navy/50 focus:border-coastal-primary focus:outline-none focus:ring-2 focus:ring-coastal-primary/20"
+          />
+          {searchQuery.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-coastal-navy/60 hover:bg-coastal-soft hover:text-coastal-navy"
+              aria-label="Clear search"
+            >
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           )}
         </div>
-      ) : (
-        <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="wait">
-            {filtered.map((rec, i) => (
-              <li key={rec.id}>
-                <RecCard rec={rec} index={i} />
-              </li>
-            ))}
-          </AnimatePresence>
-        </ul>
+      </div>
+
+      <div className="mt-3">
+        <Filters
+          activeLocation={activeLocation}
+          onLocationChange={setActiveLocation}
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+          activeCuisine={activeCuisine}
+          onCuisineChange={setActiveCuisine}
+        />
+      </div>
+
+      {/* Top picks (filtered) */}
+      {topPicks.length > 0 && (
+        <div className="mt-8">
+          <motion.h3
+            className="mb-4 flex items-center gap-2 font-display text-lg font-medium text-coastal-navy"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            <span>⭐</span>
+            <span>Top picks</span>
+          </motion.h3>
+          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="wait">
+              {topPicks.map((rec, i) => (
+                <li key={rec.id}>
+                  <RecCard rec={rec} index={i} />
+                </li>
+              ))}
+            </AnimatePresence>
+          </ul>
+        </div>
       )}
+
+      {/* All spots (filtered, incremental) */}
+      <div className="mt-10">
+        <motion.h3
+          className="mb-4 flex items-center gap-2 font-display text-lg font-medium text-coastal-navy"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <span>📍</span>
+          <span>All spots</span>
+        </motion.h3>
+
+        {visibleSpots.length === 0 ? (
+          <p className="text-sm text-gray-600">
+            No spots match your search and filters yet.
+          </p>
+        ) : (
+          <>
+            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <AnimatePresence mode="wait">
+                {visibleSpots.map((rec, i) => (
+                  <li key={rec.id}>
+                    <RecCard rec={rec} index={i} />
+                  </li>
+                ))}
+              </AnimatePresence>
+            </ul>
+
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-coastal-navy/70">
+              <span>
+                Showing {visibleSpots.length} of {allSpots.length} spots
+              </span>
+              <div className="flex gap-2">
+                {visibleCount > 12 && (
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount(12)}
+                    className="rounded-full border border-coastal-soft bg-white px-3 py-1 font-medium text-coastal-navy hover:bg-coastal-soft"
+                  >
+                    Collapse all spots
+                  </button>
+                )}
+                {hasMore && (
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount((n) => n + 12)}
+                    className="rounded-full border border-coastal-soft bg-white px-3 py-1 font-medium text-coastal-navy hover:bg-coastal-soft"
+                  >
+                    Load more
+                  </button>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
     </section>
   );
 }
