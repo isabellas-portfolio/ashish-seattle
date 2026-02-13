@@ -135,3 +135,137 @@ body {
   transform-origin: center;
   animation: heartPulseOnce 0.9s ease-out 0.35s 1 forwards;
 }
+
+/* Love boost particle burst */
+@keyframes loveBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(1.05);
+  }
+}
+
+.love-burst-particle {
+  animation: loveBurst 900ms ease-out forwards;
+}
+
+/* Starter kit sparkle burst */
+@keyframes sparklePop {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -110%) scale(1.15);
+    opacity: 0;
+  }
+}
+
+.sparkle-pop {
+  animation: sparklePop 900ms ease-out forwards;
+}
+
+/* Rain Dash: subtle scanline overlay */
+.rain-dash-scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  border-radius: inherit;
+}
+
+/* Rain Dash: cute HUD sticker bar (pill) */
+.rain-dash-hud {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 2px solid #C8DBEE;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 14px rgba(42, 61, 102, 0.12);
+}
+
+/* Rain Dash: tap to start pill */
+.rain-dash-start-pill {
+  box-shadow: 0 4px 14px rgba(42, 61, 102, 0.15);
+}
+
+/* Rain Dash: subtle grain on game wrapper */
+.rain-dash-wrap.canvas-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* Shuttle train on Seattle–Bellevue route: straight line, constant opacity, smooth back-and-forth */
+.shuttle-train {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+  animation: shuttle var(--train-duration) linear infinite alternate;
+  z-index: 3;
+  will-change: left, transform;
+}
+
+.route-track:hover .shuttle-train,
+.route-track:hover .shuttle-train-icon {
+  animation-play-state: paused;
+}
+
+.shuttle-train-icon {
+  display: inline-block;
+  filter: drop-shadow(0 8px 16px rgba(42, 61, 102, 0.18));
+  transform-origin: center;
+}
+
+/* Face direction: flip at ends only */
+.shuttle-train[data-face="1"] .shuttle-train-icon {
+  animation: shuttle-face-flip var(--train-duration) linear infinite alternate;
+}
+
+@keyframes shuttle {
+  0% {
+    left: var(--train-inset);
+    transform: translateY(-50%) translateX(-50%);
+  }
+  100% {
+    left: calc(100% - var(--train-inset));
+    transform: translateY(-50%) translateX(-50%);
+  }
+}
+
+@keyframes shuttle-face-flip {
+  0% {
+    transform: scaleX(1);
+  }
+  49.9% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(-1);
+  }
+  100% {
+    transform: scaleX(-1);
+  }
+}

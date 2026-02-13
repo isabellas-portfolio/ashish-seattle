@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function TopNav() {
   return (
     <nav className="flex flex-wrap items-center justify-center gap-2 py-4">
@@ -19,6 +21,12 @@ export default function TopNav() {
       >
         Open When Letters
       </a>
+      <Link
+        href="/rain-dash"
+        className="rounded-full border border-coastal-soft bg-white px-4 py-2 text-sm font-medium text-coastal-navy shadow-soft transition-colors hover:bg-coastal-soft"
+      >
+        Mini game
+      </Link>
     </nav>
   );
 }

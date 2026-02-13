@@ -231,7 +231,7 @@ export default function Checklist() {
                 type="checkbox"
                 checked={checked.has(idea.id)}
                 onChange={() => toggle(idea.id)}
-                className="mt-1 h-5 w-5 rounded border-coastal-soft text-coastal-primary focus:ring-coastal-primary"
+                className="mt-1 h-5 w-5 rounded border-coastal-soft accent-coastal-navy focus:ring-coastal-navy"
               />
               <span
                 className={`text-sm leading-relaxed ${

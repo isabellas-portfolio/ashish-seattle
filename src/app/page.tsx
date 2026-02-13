@@ -5,6 +5,7 @@ import Countdown from "@/components/Countdown";
 import OpenWhenLetters from "@/components/OpenWhenLetters";
 import TopNav from "@/components/TopNav";
 import BackToTop from "@/components/BackToTop";
+import LoveBoost from "@/components/LoveBoost";
 import MarginDoodles from "@/components/MarginDoodles";
 import { openWhenLetterNotes } from "@/data/openWhenLetters";
 
@@ -35,6 +36,7 @@ export default function Home() {
         <p className="text-sm text-gray-500"> © 2026 Vibe Coded by Bella {"<3"}</p>
       </footer>
       <BackToTop />
+      <LoveBoost />
       </main>
     </div>
   );

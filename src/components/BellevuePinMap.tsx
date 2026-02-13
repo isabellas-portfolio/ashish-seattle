@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import ShuttleTrain from "@/components/ShuttleTrain";
 
 export default function BellevuePinMap() {
   return (
@@ -15,16 +16,32 @@ export default function BellevuePinMap() {
 
         <div className="px-6 pt-6 pb-5">
           {/* route UI: Seattle — dotted line — Bellevue */}
-          <div className="mt-4 rounded-2xl border border-[#DDE8F4]/80 bg-[#FFFAF4]/90 px-6 py-5 shadow-sm">
+          <div className="mt-4 rounded-2xl border border-[#DDE8F4]/80 bg-[#FFFAF4]/90 px-6 py-5 shadow-sm overflow-visible">
             <div className="flex items-center justify-between gap-4">
-              {/* Left: Seattle */}
-              <div className="flex flex-col items-center gap-1 shrink-0">
-                <div className="h-3 w-3 rounded-full bg-[#2A3D66] border-2 border-[#DDE8F4]" aria-hidden />
+              {/* Left: Seattle + pin */}
+              <div className="flex flex-col items-center gap-1 shrink-0 relative overflow-visible pt-0.5">
+                <motion.div
+                  initial={{ y: 4 }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
+                  className="flex flex-col items-center overflow-visible"
+                >
+                  <svg viewBox="-1 -2 26 38" className="h-8 w-6 text-[#2A3D66] flex-shrink-0" fill="none" aria-hidden="true" style={{ overflow: "visible" }}>
+                    <path
+                      d="M12 0C6 0 2 6 2 12c0 9 10 22 10 22s10-13 10-22c0-6-4-12-10-12z"
+                      fill="#C48497"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinejoin="round"
+                    />
+                    <circle cx="12" cy="12" r="4" fill="#FFFAF4" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </motion.div>
                 <span className="text-sm font-medium text-[#2A3D66] font-display">Seattle</span>
               </div>
 
-              {/* Center: dotted route line + heart */}
-              <div className="flex-1 flex items-center justify-center min-w-0 px-2">
+              {/* Center: dotted route line + heart + shuttle train */}
+              <div className="route-track relative flex-1 flex items-center justify-center min-w-0 px-2">
                 <svg viewBox="0 0 200 24" className="w-full h-6 text-[#2A3D66]" fill="none" aria-hidden="true">
                   <line
                     x1="0"
@@ -46,31 +63,13 @@ export default function BellevuePinMap() {
                     opacity="0.9"
                   />
                 </svg>
+                <ShuttleTrain durationMs={2200} insetPx={24} sizePx={22} faceDirection />
               </div>
 
-              {/* Right: Bellevue + pin */}
-              <div className="flex flex-col items-center gap-1 shrink-0 relative">
-                <motion.div
-                  initial={{ y: 4 }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1] }}
-                  className="flex flex-col items-center"
-                >
-                  <svg viewBox="0 0 24 36" className="h-8 w-6 text-[#2A3D66]" fill="none" aria-hidden="true">
-                    <path
-                      d="M12 0C6 0 2 6 2 12c0 9 10 22 10 22s10-13 10-22c0-6-4-12-10-12z"
-                      fill="#C48497"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinejoin="round"
-                    />
-                    <circle cx="12" cy="12" r="4" fill="#FFFAF4" stroke="currentColor" strokeWidth="2" />
-                  </svg>
-                </motion.div>
+              {/* Right: Bellevue */}
+              <div className="flex flex-col items-center gap-1 shrink-0">
+                <div className="h-3 w-3 rounded-full bg-[#2A3D66] border-2 border-[#DDE8F4]" aria-hidden />
                 <span className="text-sm font-medium text-[#2A3D66] font-display">Bellevue</span>
-                <span className="mt-1 inline-flex items-center rounded-full border border-[#DDE8F4] bg-white/80 px-2.5 py-0.5 text-xs font-medium text-[#2A3D66]/90">
-                  Atlassian HQ ✨
-                </span>
               </div>
             </div>
           </div>

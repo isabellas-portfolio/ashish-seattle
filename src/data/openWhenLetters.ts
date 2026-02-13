@@ -29,7 +29,7 @@ export const openWhenLetterNotes: OpenWhenLetterNote[] = [
     id: "letter-4",
     title: "Open when you need a laugh",
     message:
-      "\n\nSending you a virtual hug and a frog 😛. \n\n <3 Bella",
+      "\n\n here are some Sam Thomaslations: “Look at God” \n “Secure” \n “My brother in Christ \n LUKE 2 CHAPTER 8 VERSE 10. \n\n Ashish look over there... look... it's a... COW. Sending you a virtual hug and a frog 😛. \n\n <3 Bella",
   },
   {
     id: "letter-5",
