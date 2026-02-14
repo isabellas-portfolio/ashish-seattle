@@ -8,6 +8,7 @@ import { REC_CATEGORIES, seattleRecs } from "@/data/recs";
 const CATEGORY_LABELS: Record<RecCategory, string> = {
   food: "Food & eats",
   coffee: "Coffee",
+  bar: "Bar",
   outdoors: "Outdoors",
   neighborhoods: "Neighborhoods",
   culture: "Culture",
@@ -24,6 +25,7 @@ const CATEGORY_OPTIONS: { value: RecCategory | "all"; label: string; emoji: stri
   { value: "all", label: "All categories", emoji: "" },
   { value: "food", label: CATEGORY_LABELS.food, emoji: "🍜" },
   { value: "coffee", label: CATEGORY_LABELS.coffee, emoji: "☕" },
+  { value: "bar", label: CATEGORY_LABELS.bar, emoji: "🍸" },
   { value: "outdoors", label: CATEGORY_LABELS.outdoors, emoji: "🌲" },
   { value: "neighborhoods", label: CATEGORY_LABELS.neighborhoods, emoji: "🏘" },
   { value: "culture", label: CATEGORY_LABELS.culture, emoji: "🎭" },

@@ -1,6 +1,7 @@
 export type RecCategory =
   | "food"
   | "coffee"
+  | "bar"
   | "outdoors"
   | "neighborhoods"
   | "culture"
