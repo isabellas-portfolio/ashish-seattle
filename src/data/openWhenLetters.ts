@@ -29,12 +29,12 @@ export const openWhenLetterNotes: OpenWhenLetterNote[] = [
     id: "letter-4",
     title: "Open when you need a laugh",
     message:
-      "\n\n here are some Sam Thomaslations: “Look at God” \n “Secure” \n “My brother in Christ \n LUKE 2 CHAPTER 8 VERSE 10. \n\n Ashish look over there... look... it's a... COW. Sending you a virtual hug and a frog 😛. \n\n <3 Bella",
+      "\n\n here are some Sam Thomaslations: “Look at God” \n “Secure” \n “My brother in Christ \n LUKE CHAPTER 2 VERSES 8 THROUGH 10. \n\n Ashish look over there... look... it's a... COW. Sending you a virtual hug and a frog 😛. \n\n <3 Bella",
   },
   {
     id: "letter-5",
     title: "Open when it's our anniversary",
     message:
-      "Happy anniversary, love.\n\n[Add your own message here—how long you've been together, a favorite memory, or what you're looking forward to.]\n\nHere's to many more. 💕",
+      "Happy Anniversary!! I love you so much. It's crazy that it's already been 3 years since we started dating. It's felt like one second and also a lifetime. <3 Bella",
   },
 ];
