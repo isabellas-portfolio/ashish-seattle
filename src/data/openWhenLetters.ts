@@ -35,6 +35,6 @@ export const openWhenLetterNotes: OpenWhenLetterNote[] = [
     id: "letter-5",
     title: "Open when it's our anniversary",
     message:
-      "Happy Anniversary!! I love you so much. It's crazy that it's already been 3 years since we started dating. It's felt like one second and also a lifetime. <3 Bella",
+      "Happy Anniversary!! I love you so much. It's crazy that it's already been 3 years since we started dating. It's felt like one second and also a lifetime. I can't wait for so many more!! <3 Bella",
   },
 ];
